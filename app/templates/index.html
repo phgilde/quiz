@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+
+<body>
+
+    <h1>
+        {% if id_ %}
+        <a href="{{ url_for('quiz', id_=id_) }}">{{ url_for('quiz', id_=id_) }}</a>
+        {% else %}
+        <a href=" {{ url_for('newquiz') }} ">Quiz erstellen</a>
+        {% endif %}
+    </h1>
+</body>
+
+</html>
+{% endblock %}

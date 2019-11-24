@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<html>
+    <body>
+        <table>
+            {% for name, score in answers %}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{score}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p>Richtige Lösungen: </p>
+        <table>
+                {% for question, answer in correct_answers %}
+                <tr>
+                    <td>{{question}}</td>
+                    <td>{{answer}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            
+    </body>
+</html>
+{% endblock %}
