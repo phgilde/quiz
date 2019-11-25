@@ -21,6 +21,7 @@ def index():
 def newquiz():
     form = gen_quizform(questions, answers, "Neues quiz estellen!")
     fields = list(form.__dict__.values())[7:-1]
+
     if form.validate_on_submit():
         flash("Quiz abgeschickt!")
         # get answers
@@ -48,9 +49,9 @@ def newquiz():
 def quiz(id_):
     if not Quiz.query.get(id_):
         return render_template("noquiz.html")
-    form = gen_quizform(questions, answers, submit="Quiz abschicken!")
+    form = gen_quizform(questions, answers, "Quiz abschicken!")
     fields = list(form.__dict__.values())[7:-1]
-
+    
     if form.validate_on_submit():
         name = form.name.data
         answers_form = [field.data for field in fields]
