@@ -1,23 +1,40 @@
-<html>
-    <head>
-        {% if title %}
-        <title>{{ title }}</title>
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Quiz</title>
+    {% endif %}
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700&display=swap&subset=devanagari,latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+  <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-danger float">
+        {{ message }}
+      </div>
+    {% endfor %}
+    {% endif %}
+    <div class="header">
+      <div class="hleft">
+        <a href="{{ url_for('index') }}" class="brandtop">the</a><br>
+        <a href="{{ url_for('index') }}" class="brand">Quiz</a>
+      </div>
+      <div class="hright">
+        {% if id_ %}
+        <a href="{{ url_for('quiz', id_=id_) }}""><button type="button" name="myquiz" class="myquiz" href="{{ url_for('quiz', id_=id_) }}">Mein Quiz</button></a>
         {% else %}
-        <title>Quiz</title>
+        <a href=" {{ url_for('newquiz') }}""><button type="button" name="quizcreate" class="quizcreate">Quiz erstellen</button></a>
         {% endif %}
-    </head>
-    <body>
-        <p><a href="{{ url_for('index') }}">Start</a></p>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
+      </div>
+    </div>
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
 </html>

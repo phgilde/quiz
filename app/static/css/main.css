@@ -1,0 +1,101 @@
+body {
+  font-family: 'Rajdhani', sans-serif;
+}
+.content {
+  margin: 5em;
+}
+.contentsmall {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.smalltext {
+  font-size: 2em;
+}
+.float {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 2em;
+  margin-bottom: 2em;
+  opacity: 1;
+  transition: opacity 0.3s; /* 600ms to fade out */
+}
+.header {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 5em;
+  background-color: white;
+  padding: 2em;
+  padding-bottom: 4em;
+  color: white;
+  box-shadow: 0px 10px 8px #888888;
+}
+.hright {
+  position: absolute;
+  padding-bottom: 0.5em;
+  right: 0;
+  margin-right: 3em;
+  display: block;
+  vertical-align: middle;
+}
+.header a {
+  float: left;
+  text-decoration: none;
+  color: black;
+}
+.brand {
+  font-size: 3em;
+  line-height: 0em;
+}
+.brandtop {
+  padding-left: 1.6em;
+  font-size: 1em;
+  line-height: 2em;
+}
+.quizcreate {
+  float: right;
+  margin-top: 0px;
+  padding: 0.7em;
+  background-color: #1699e5;
+  border-radius: 0.5em;
+  color: white;
+  border: 0.2em none transparent;
+  box-shadow: 0.06em 0.06em 0.06em #888888;
+}
+.quizcreate:hover {
+  background-color: #1287cc;
+  box-shadow: 0.1em 0.1em 0.1em #888888;
+}
+.quizcreate:active {
+  background-color: #1687e2;
+  box-shadow: 0.2em 0.2em 0.2em #888888;
+}
+.myquiz {
+  float: right;
+  margin-top: 0px;
+  padding: 0.7em;
+  background-color: #2cdd5e;
+  border-radius: 0.5em;
+  color: white;
+  border: 0.2em none transparent;
+  box-shadow: 0.06em 0.06em 0.06em #888888;
+}
+.myquiz:hover {
+  background-color: #23c64f;
+  box-shadow: 0.1em 0.1em 0.1em #888888;
+}
+.myquiz:active {
+  background-color: #14bc41;
+  box-shadow: 0.2em 0.2em 0.2em #888888;
+}

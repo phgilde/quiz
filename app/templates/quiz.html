@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<html>
-
-<body>
+<div class="content">
     <form action="" method="post">
         {{form.hidden_tag()}}
         {{form.name.label}}<br>
@@ -19,7 +17,5 @@
             {% endfor %}
         {{form.submit()}}
     </form>
-</body>
-
-</html>
+</div>
 {% endblock %}

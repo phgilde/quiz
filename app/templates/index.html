@@ -1,18 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<html>
-
-<body>
-
-    <h1>
-        {% if id_ %}
-        <a href="{{ url_for('quiz', id_=id_) }}">{{ url_for('quiz', id_=id_) }}</a>
-        {% else %}
-        <a href=" {{ url_for('newquiz') }} ">Quiz erstellen</a>
-        {% endif %}
-    </h1>
-</body>
-
-</html>
+<div class="content smalltext">
+  <a href=" {{ url_for('newquiz') }}"><button type="button" name="quizcreate" class="quizcreate">Quiz erstellen</button></a>
+    <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+</div>
 {% endblock %}
