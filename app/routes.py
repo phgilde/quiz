@@ -8,13 +8,13 @@ from app.forms import QuizForm
 from app.models import Answer, Quiz
 from app.quiz import answers, questions
 from app.config import Config
-import json
+
 
 @app.route("/index")
 @app.route("/")
 def index():
     id_ = request.cookies.get("quiz") or None
-    return render_template("index.html", id_=id_)
+    return render_template("index.html")
 
 
 @app.route("/newquiz", methods=["GET", "POST"])
@@ -43,7 +43,7 @@ def newquiz():
 
     return render_template("newquiz.html", form=form,
                            questions=questions,
-                           answers=answers)
+                           answers=answers, id_=id_)
 
 
 @app.route("/quiz/<id_>", methods=["GET", "POST"])
@@ -69,7 +69,7 @@ def quiz(id_):
     if request.cookies.get(id_):
         return redirect(url_for("quizanswers", id_=id_))
     else:
-        return render_template("quiz.html", form=form, fields=fields)
+        return render_template("quiz.html", form=form, fields=fields, id_=id_)
 
 
 @app.route("/quizanswers/<id_>")
@@ -93,4 +93,4 @@ def quizanswers(id_):
 
     correct_answers = [answer[int(correct_answer)] for answer, correct_answer in zip(answers, correct_answers)]
     return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions, correct_answers))
+                           correct_answers=zip(questions, correct_answers), id_=id_)
