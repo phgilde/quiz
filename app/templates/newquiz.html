@@ -15,6 +15,7 @@
             {{form.answers()}}
             {{form.submit()}}
         </form>
+
     </div>
     <script>
         $("form").hide();
@@ -24,6 +25,7 @@
         var i = 0;
         updateQuiz = function(clicked) {
             return function(){
+                
                 result.push(clicked);
                 $("#answers").empty();
                 $("#question").empty();
@@ -31,15 +33,16 @@
                 if(i==questions.length) {
                     $("form").show();
                     $("form :text").hide();
-                    $("form #name").val() = name;
-                    $("form #answers").val() = result.join(" ");
+                    $("form #name").val(name);
+                    $("form #answers").val(result.join(" "));
                 }
 
                 $("#question").html(questions[i]);
                 for(var j = 0; j<answers[i].length; j++) {
                     $("#answers").append($("<button></button>").html(answers[i][j]).click(updateQuiz(j)));
                 }
-                        
+
+
                 i += 1;
                         
             }

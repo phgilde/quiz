@@ -22,7 +22,7 @@ def newquiz():
     form = QuizForm()
 
     if form.validate_on_submit():
-        flash("Quiz abgeschickt!")
+        flash(form.answers.data)
         # get answers
         name = form.name.data
         answers_form = form.answers.data.split()
