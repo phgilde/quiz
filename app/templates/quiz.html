@@ -30,7 +30,7 @@
                         $("form").show();
                         $("form :text").hide();
                         $("form #name").val() = name;
-                        $("form #answers").val() = result;
+                        $("form #answers").val() = result.join(" ");
                     }
     
                     $("#question").html(questions[i]);

@@ -25,7 +25,7 @@ def newquiz():
         flash("Quiz abgeschickt!")
         # get answers
         name = form.name.data
-        answers_form = form.answers.data
+        answers_form = form.answers.data.split()
         # 64 ** 10 - 1
         id_ = randint(0, 10**10 - 1)
 
@@ -55,7 +55,7 @@ def quiz(id_):
     
     if form.validate_on_submit():
         name = form.name.data
-        answers_form = form.answers.data
+        answers_form = form.answers.data.split()
 
         answer = Answer(name=name, answers=" ".join(answers_form),
                         quiz=Quiz.query.get(id_))
