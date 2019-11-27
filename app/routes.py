@@ -4,11 +4,11 @@ from flask import (flash, make_response, redirect, render_template, request,
                    url_for)
 
 from app import app, db
-from app.forms import gen_quizform
+from app.forms import QuizForm
 from app.models import Answer, Quiz
 from app.quiz import answers, questions
 from app.config import Config
-
+import json
 
 @app.route("/index")
 @app.route("/")
@@ -19,14 +19,13 @@ def index():
 
 @app.route("/newquiz", methods=["GET", "POST"])
 def newquiz():
-    form = gen_quizform(questions, answers, "Neues quiz estellen!")
-    fields = list(form.__dict__.values())[7:-1]
+    form = QuizForm()
 
     if form.validate_on_submit():
         flash("Quiz abgeschickt!")
         # get answers
         name = form.name.data
-        answers_form = [field.data for field in fields]
+        answers_form = form.answers.data
         # 64 ** 10 - 1
         id_ = randint(0, 10**10 - 1)
 
@@ -42,19 +41,21 @@ def newquiz():
 
         return resp
 
-    return render_template("newquiz.html", form=form, fields=fields)
+    return render_template("newquiz.html", form=form,
+                           questions=questions,
+                           answers=answers)
 
 
 @app.route("/quiz/<id_>", methods=["GET", "POST"])
 def quiz(id_):
     if not Quiz.query.get(id_):
         return render_template("noquiz.html")
-    form = gen_quizform(questions, answers, "Quiz abschicken!")
+    form = QuizForm()
     fields = list(form.__dict__.values())[7:-1]
     
     if form.validate_on_submit():
         name = form.name.data
-        answers_form = [field.data for field in fields]
+        answers_form = form.answers.data
 
         answer = Answer(name=name, answers=" ".join(answers_form),
                         quiz=Quiz.query.get(id_))
