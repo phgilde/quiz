@@ -56,6 +56,9 @@
           <a href="#"><i class="fas fa-chevron-up"></i></a>
         </p>
         <p>&copy; 2019 - Ben Hurensöhn - Alle Rechte vorbehalten</p>
+        {% if id_ %}
+        <input readonly type="text" value="{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}" id="myInput">
+        {% endif %}
         <a href="whatsapp://send?text=text123" target="_blank">
           <button type="button" class="btn btn-success"><i class="fab fa-whatsapp"></i></button>
         </a>
@@ -67,10 +70,8 @@
         </a>
       </div>
     </footer>
-    {% if id_ %}
-    <input style="width:0" type="text" value="{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}" id="myInput">
-    {% endif %}
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
   </body>
+
 </html>
