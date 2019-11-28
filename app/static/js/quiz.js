@@ -2,6 +2,7 @@ run = function (questions, answers) {
     $("form").hide();
     var result = []
     var i = 0;
+    var name = "";
     updateQuiz = function(clicked) {
         return function(){
 
@@ -31,7 +32,7 @@ run = function (questions, answers) {
             $("#name-label").hide();
             $("#name").hide();
             $("#send-name").hide();
-            var name = $("#name").val();
+            name = $("#name").val();
             updateQuiz(0)();
             result.pop()
         } else {
