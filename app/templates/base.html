@@ -67,7 +67,9 @@
         </a>
       </div>
     </footer>
+    {% if id_ %}
     <input style="width:0" type="text" value="{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}" id="myInput">
+    {% endif %}
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
   </body>
