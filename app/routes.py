@@ -55,6 +55,7 @@ def newquiz():
                            answers=answers, id_=request.cookies.get("quiz"))
 
 
+@app.route("/q/<id>")
 @app.route("/quiz/<id_>", methods=["GET", "POST"])
 def quiz(id_):
     if not Quiz.query.get(id_):
