@@ -1,8 +1,16 @@
 body {
   font-family: 'Rajdhani', sans-serif;
+  background-color: #FFFFFF;
+}
+.jumbotron {
+  background-color: #FFFFFF;
 }
 .content {
   margin: 5em;
+}
+.inhalt {
+  width: 100%;
+  background-color: #F8F9FA;
 }
 .contentsmall {
   width: 100%;

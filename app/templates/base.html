@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700&display=swap&subset=devanagari,latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7c71b1563d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   </head>
   <body>
@@ -22,20 +23,38 @@
       </div>
     {% endfor %}
     {% endif %}
-    <div class="header">
-      <div class="hleft">
-        <a href="{{ url_for('index') }}" class="brandtop">the</a><br>
-        <a href="{{ url_for('index') }}" class="brand">Quiz</a>
+    <header>
+      <div class="bg-dark">
+        <div class="container">
+          <nav class="navbar navbar-dark bg-dark box-shadow">
+            <a class="navbar-brand d-flex align-items-center text-white" href="{{ url_for('index') }}">Title</a>
+            {% if id_ %}
+            <a href="{{ url_for('quiz', id_=id_) }}"><button type="button" name="myquiz" class="btn btn-outline-success my-2 my-sm-0" href="{{ url_for('quiz', id_=id_) }}">Mein Quiz</button></a>
+            {% else %}
+            <a href="{{ url_for('newquiz') }}"><button type="button" name="quizcreate" class="btn btn-outline-primary my-2 my-sm-0">Quiz erstellen</button></a>
+            {% endif %}
+          </nav>
+        </div>
       </div>
-      <div class="hright">
-        {% if id_ %}
-        <a href="{{ url_for('quiz', id_=id_) }}""><button type="button" name="myquiz" class="myquiz" href="{{ url_for('quiz', id_=id_) }}">Mein Quiz</button></a>
-        {% else %}
-        <a href=" {{ url_for('newquiz') }}""><button type="button" name="quizcreate" class="quizcreate">Quiz erstellen</button></a>
-        {% endif %}
-      </div>
-    </div>
+    </header>
     {% endwith %}
     {% block content %}{% endblock %}
+    <footer class="blog-footer text-light bg-dark py-5">
+      <div class="container">
+        <p class="float-right text-light">
+          <a href="#"><i class="fas fa-chevron-up"></i></a>
+        </p>
+        <p>&copy; 2019 - Ben Hurensöhn - Alle Rechte vorbehalten</p>
+        <a href="whatsapp://send?text=Text durch native Deeplink!">
+          <button type="button" class="btn btn-success"><i class="fab fa-whatsapp"></i></button>
+        </a>
+        <a href="whatsapp://send?text=Text durch native Deeplink!">
+          <button type="button" class="btn btn-primary"><i class="fab fa-twitter"></i></button>
+        </a>
+        <a href="whatsapp://send?text=Text durch native Deeplink!">
+          <button type="button" class="btn btn-info"><i class="far fa-clipboard"></i></button>
+        </a>
+      </div>
+    </footer>
   </body>
 </html>
