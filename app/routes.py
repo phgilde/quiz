@@ -13,8 +13,7 @@ from app.config import Config
 @app.route("/index")
 @app.route("/")
 def index():
-    id_ = request.cookies.get("quiz") or None
-    return render_template("index.html", id_=id_)
+    return render_template("index.html", id_=request.cookies.get("quiz"))
 
 
 @app.route("/newquiz", methods=["GET", "POST"])
