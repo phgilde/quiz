@@ -24,5 +24,7 @@
     </div>
     <script src="{{ url_for('static', filename='js/quiz.js')}}"></script>
     <script>run({{questions|tojson|safe}}, {{answers|tojson|safe}})</script>
+  </div>
+  </div>
 </div>
 {% endblock %}

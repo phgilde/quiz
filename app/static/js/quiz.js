@@ -8,7 +8,7 @@ run = function (questions, answers) {
             result.push(clicked);
             $("#answers").empty();
             $("#question").empty();
-            
+
             if(i==questions.length) {
                 $("form").show();
                 $("form :text").hide();
@@ -18,12 +18,12 @@ run = function (questions, answers) {
 
             $("#question").html(questions[i]);
             for(var j = 0; j<answers[i].length; j++) {
-                $("#answers").append($("<button></button>").html(answers[i][j]).click(updateQuiz(j)));
+                $("#answers").append($('<button class="answers btn btn-info"></button>').html(answers[i][j]).click(updateQuiz(j)));
             }
 
 
             i += 1;
-        
+
         }
     }
     nameSubmitFunc = function() {

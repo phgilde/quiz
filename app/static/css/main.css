@@ -1,6 +1,12 @@
 body {
   background-color: #FFFFFF;
 }
+.answers {
+  margin: 0.5em;
+
+}
+
+
 .form-control {
   margin-bottom: 1.5em;
 }
