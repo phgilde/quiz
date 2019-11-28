@@ -43,7 +43,7 @@ def newquiz():
 
     return render_template("newquiz.html", form=form,
                            questions=questions,
-                           answers=answers, id_=id_)
+                           answers=answers, id_=request.cookies.get("quiz"))
 
 
 @app.route("/quiz/<id_>", methods=["GET", "POST"])
@@ -52,7 +52,7 @@ def quiz(id_):
         return render_template("noquiz.html")
     form = QuizForm()
     fields = list(form.__dict__.values())[7:-1]
-    
+
     if form.validate_on_submit():
         name = form.name.data
         answers_form = form.answers.data.split()
@@ -69,7 +69,7 @@ def quiz(id_):
     if request.cookies.get(id_):
         return redirect(url_for("quizanswers", id_=id_))
     else:
-        return render_template("quiz.html", form=form, fields=fields, id_=id_)
+        return render_template("quiz.html", form=form, fields=fields, id_=request.cookies.get("quiz"))
 
 
 @app.route("/quizanswers/<id_>")
@@ -93,4 +93,4 @@ def quizanswers(id_):
 
     correct_answers = [answer[int(correct_answer)] for answer, correct_answer in zip(answers, correct_answers)]
     return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions, correct_answers), id_=id_)
+                           correct_answers=zip(questions, correct_answers), id_=request.cookies.get("quiz"))
