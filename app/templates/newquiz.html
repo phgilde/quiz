@@ -1,22 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="content">
-    <div id="quiz">
-        <p id="name-label">Dein Name</p>
+<div class="py-5 bg-light">
+  <div class="container">
+    <div class="card text-center">
+      <div id="quiz">
+      <div class="card-body">
+        <h1><p id="name-label">Dein Name</p></h1>
         <input id="name" type="text">
-        <input id="send-name" type="button" value="Weiter">
-        <p id="question"></p>
-        <div id="answers"></div>
+        <input id="send-name" type="button" class="btn btn-success" value="Weiter">
+        <b><h1><p id="question"></p></h1></b>
+        <div id="answers" class=""></div>
         <form action="" method="POST">
             {{form.hidden_tag()}}
             {{form.name()}}
             {{form.answers()}}
             {{form.submit()}}
         </form>
-
+      </div>
     </div>
+    </div>
+  </div>
+</div>
     <script>
         $("form").hide();
         var questions = {{questions|tojson|safe}};
@@ -25,11 +30,11 @@
         var i = 0;
         updateQuiz = function(clicked) {
             return function(){
-                
+
                 result.push(clicked);
                 $("#answers").empty();
                 $("#question").empty();
-                    
+
                 if(i==questions.length) {
                     $("form").show();
                     $("form :text").hide();
@@ -39,12 +44,12 @@
 
                 $("#question").html(questions[i]);
                 for(var j = 0; j<answers[i].length; j++) {
-                    $("#answers").append($("<button></button>").html(answers[i][j]).click(updateQuiz(j)));
+                    $("#answers").append($('<button class="btn btn-info"></button>').html(answers[i][j]).click(updateQuiz(j)));
                 }
 
 
                 i += 1;
-                        
+
             }
         }
         nameSubmitFunc = function() {

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="content">
+  <div class="content">
+    <div class="card">
+      <div class="body">
         <div id="quiz">
             <p id="name-label">Dein Name</p>
             <input id="name" type="text">
@@ -14,6 +16,11 @@
                 {{form.submit()}}
             </form>
         </div>
+      </div>
+    </div>
+  </div>
+
+
         <script>
             $("form").hide();
             var questions = {{questions|tojson|safe}};
@@ -25,21 +32,21 @@
                     result.push(clicked);
                     $("#answers").empty();
                     $("#question").empty();
-                        
+
                     if(i==questions.length) {
                         $("form").show();
                         $("form :text").hide();
                         $("form #name").val(name);
                         $("form #answers").val(result.join(" "));
                     }
-    
+
                     $("#question").html(questions[i]);
                     for(var j = 0; j<answers[i].length; j++) {
-                        $("#answers").append($("<button></button>").html(answers[i][j]).click(updateQuiz(j)));
+                        $("#answers").append($("<button class="btn btn-info"></button>").html(answers[i][j]).click(updateQuiz(j)));
                     }
-                            
+
                     i += 1;
-                            
+
                 }
             }
             nameSubmitFunc = function() {
@@ -53,7 +60,7 @@
                 } else {
                     alert("Bitte gebe einen Namen ein");
                 }
-                
+
             }
             $("#send-name").click(nameSubmitFunc);
         </script>
