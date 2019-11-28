@@ -63,11 +63,12 @@
         <a href="https://twitter.com/intent/tweet?text=Check%20mal%20diese%20neue%20Website%20aus!&url=https://allahuquiz.com&hashtags=sharemyquiz&original_referer=" target="_blank">
           <button type="button" class="btn btn-primary"><i class="fab fa-twitter"></i></button>
         </a>
-        <a onclick="myFunction('test123')">
+        <a>
           <button type="button" class="btn btn-info" id="clipboard"><i class="far fa-clipboard"></i></button>
         </a>
       </div>
     </footer>
+    <input style="width:0" type="text" value="{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}" id="myInput">
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
   </body>
