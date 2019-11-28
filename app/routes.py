@@ -103,3 +103,13 @@ def quizanswers(id_):
     correct_answers = [answer[int(correct_answer)] for answer, correct_answer in zip(answers, correct_answers)]
     return render_template("quizanswers.html", answers=zip(names, scores),
                            correct_answers=zip(questions, correct_answers), id_=request.cookies.get("quiz"))
+
+
+@app.errorhandler(404)
+def error_404():
+    return render_template("err404.html", id_=request.cookies.get("quiz"))
+
+
+@app.errorhandler(500)
+def error_404():
+    return render_template("err500.html", id_=request.cookies.get("quiz"))
