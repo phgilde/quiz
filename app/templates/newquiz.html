@@ -48,12 +48,16 @@
             }
         }
         nameSubmitFunc = function() {
-            $("#name-label").hide();
-            $("#name").hide();
-            $("#send-name").hide();
-            var name = $("#name").val();
-            updateQuiz(0)();
-            result.pop()
+            if ($("#name").length > 1) {
+                $("#name-label").hide();
+                $("#name").hide();
+                $("#send-name").hide();
+                var name = $("#name").val();
+                updateQuiz(0)();
+                result.pop()
+            } else {
+                alert("Bitte gebe einen Namen ein");
+            }
         }
         $("#send-name").click(nameSubmitFunc);
     </script>
