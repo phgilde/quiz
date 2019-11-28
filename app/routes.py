@@ -21,7 +21,7 @@ def newquiz():
     form = QuizForm()
 
     if form.validate_on_submit():
-        flash(form.answers.data)
+        flash("quiz abgeschickt!")
         # get answers
         name = form.name.data
         answers_form = form.answers.data.split()
@@ -53,6 +53,7 @@ def quiz(id_):
     fields = list(form.__dict__.values())[7:-1]
 
     if form.validate_on_submit():
+        flash("Quiz abgeschickt!")
         name = form.name.data
         answers_form = form.answers.data.split()
 
