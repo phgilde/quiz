@@ -3,11 +3,12 @@
 <div class="content">
   <div class="container py-5">
     <div class="card">
+      <div class="container py-5">
       <table class="table table-bordered">
           {% for name, score in answers %}
           <tr>
-              <td scope="row">{{name}}</td>
-              <td>{{score}}</td>
+              <td scope="row">{{name}} hat </td>
+              <td>{{score}} erreicht</td>
           </tr>
           {% endfor %}
       </table>
@@ -22,5 +23,6 @@
           </table>
           </div>
     </div>
+  </div>
 </div>
 {% endblock %}
