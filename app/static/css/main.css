@@ -32,6 +32,7 @@ body {
 .cookiealert .acceptcookies {
     margin-left: 10px;
     vertical-align: baseline;
+    border: none;
 }
 .jumbotron {
   background-color: #FFFFFF;
