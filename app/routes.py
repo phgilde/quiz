@@ -14,7 +14,7 @@ from app.config import Config
 @app.route("/")
 def index():
     id_ = request.cookies.get("quiz") or None
-    return render_template("index.html")
+    return render_template("index.html", id_=id_)
 
 
 @app.route("/newquiz", methods=["GET", "POST"])
