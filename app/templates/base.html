@@ -57,8 +57,7 @@
         </p>
         <p>&copy; 2019 - Ben Hurensöhn - Alle Rechte vorbehalten</p>
         {% if id_ %}
-        <input class="url form-control" readonly type="text" value="{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}" id="myInput">
-        <code class="" data-balloon="Copy HTML" data-balloon-pos="down">{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}</code>
+        <input class="url form-control" data-toggle="tooltip" readonly type="text" value="{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}" id="myInput"></input>
         {% endif %}
         <a href="whatsapp://send?text=text123" target="_blank">
           <button type="button" class="btn btn-success"><i class="fab fa-whatsapp"></i></button>
