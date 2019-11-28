@@ -5,7 +5,9 @@ body {
   margin: 0.5em;
 
 }
-
+.url {
+  max-width: 15em;
+}
 
 .form-control {
   margin-bottom: 1.5em;
