@@ -28,10 +28,10 @@ def newquiz():
 
         # if quiz already exsists
         if request.cookies.get("quiz"):
-            if Quiz.get(request.cookies.get("quiz")):
+            if Quiz.query.get(request.cookies.get("quiz")):
                 flash("Quiz geändert!")
-                Quiz.get(request.cookies.get("quiz")).name = name
-                Quiz.get(request.cookies.get("quiz")).correct_answers = " ".join(answers_form)
+                Quiz.query.get(request.cookies.get("quiz")).name = name
+                Quiz.query.get(request.cookies.get("quiz")).correct_answers = " ".join(answers_form)
                 db.session.commit()
                 redirect(url_for("index"))
         else:
