@@ -32,6 +32,7 @@ def newquiz():
                 flash("Quiz geändert!")
                 Quiz.get(request.cookies.get("quiz")).name = name
                 Quiz.get(request.cookies.get("quiz")).correct_answers = " ".join(answers_form)
+                db.session.commit()
                 redirect(url_for("index"))
         else:
             # 64 ** 10 - 1
@@ -59,7 +60,6 @@ def quiz(id_):
     if not Quiz.query.get(id_):
         return render_template("noquiz.html")
     form = QuizForm()
-    fields = list(form.__dict__.values())[7:-1]
 
     if form.validate_on_submit():
         flash("Quiz abgeschickt!")
@@ -78,7 +78,7 @@ def quiz(id_):
     if request.cookies.get(id_):
         return redirect(url_for("quizanswers", id_=id_))
     else:
-        return render_template("quiz.html", form=form, fields=fields, id_=request.cookies.get("quiz"))
+        return render_template("quiz.html", form=form, questions=questions, answers=answers, id_=request.cookies.get("quiz"))
 
 
 @app.route("/quizanswers/<id_>")
