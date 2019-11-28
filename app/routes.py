@@ -25,20 +25,29 @@ def newquiz():
         # get answers
         name = form.name.data
         answers_form = form.answers.data.split()
-        # 64 ** 10 - 1
-        id_ = randint(0, 10**10 - 1)
 
-        # new quiz entry
-        quiz = Quiz(id_=id_, name=name, correct_answers=" ".join(answers_form))
-        db.session.add(quiz)
-        db.session.commit()
+        # if quiz already exsists
+        if request.cookies.get("quiz"):
+            if Quiz.get(request.cookies.get("quiz")):
+                flash("Quiz geändert!")
+                Quiz.get(request.cookies.get("quiz")).name = name
+                Quiz.get(request.cookies.get("quiz")).correct_answers = " ".join(answers_form)
+                redirect(url_for("index"))
+        else:
+            # 64 ** 10 - 1
+            id_ = randint(0, 10**10 - 1)
 
-        # quiz id as base64
-        resp = make_response(redirect(url_for("index")))
-        resp.set_cookie("quiz", str(id_))
-        resp.set_cookie(str(id_), "True")
+            # new quiz entry
+            quiz = Quiz(id_=id_, name=name, correct_answers=" ".join(answers_form))
+            db.session.add(quiz)
+            db.session.commit()
 
-        return resp
+            # quiz id as base64
+            resp = make_response(redirect(url_for("index")))
+            resp.set_cookie("quiz", str(id_))
+            resp.set_cookie(str(id_), "True")
+
+            return resp
 
     return render_template("newquiz.html", form=form,
                            questions=questions,
