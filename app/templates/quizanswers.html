@@ -4,15 +4,9 @@
   <div class="container py-5">
     <div class="card">
       <div class="container py-5">
-        <div class="progress" style="width: 20em;">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5">4/5</div>
-        </div>
       <table class="table table-bordered">
           {% for name, score in answers %}
-          <tr>
-              <td scope="row">{{name}} hat </td>
-              <td>{{score}} erreicht</td>
-          </tr>
+          <p>{{name}} hat {{score}} erreicht</p><div class="progress" style="width: 20em;"><div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="{{score}}" aria-valuemin="0" aria-valuemax="5">{{score}}/5</div></div>
           {% endfor %}
       </table>
       <p>Richtige Lösungen: </p>
