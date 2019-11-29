@@ -55,8 +55,8 @@ def newquiz():
                            answers=answers, id_=request.cookies.get("quiz"))
 
 
-@app.route("/q/<id>")
-@app.route("/quiz/<id_>", methods=["GET", "POST"])
+@app.route("/q/<id_>", methods=["GET", "POST"])
+# @app.route("/quiz/<id_>", methods=["GET", "POST"])
 def quiz(id_):
     if not Quiz.query.get(id_):
         return render_template("noquiz.html")
@@ -82,7 +82,7 @@ def quiz(id_):
         return render_template("quiz.html", form=form, questions=questions, answers=answers, id_=request.cookies.get("quiz"))
 
 
-@app.route("/quizanswers/<id_>")
+@app.route("/a/<id_>")
 def quizanswers(id_):
     if not request.cookies.get(id_):
         return redirect(url_for("quiz", id_=id_))
