@@ -59,7 +59,7 @@ def newquiz():
 # @app.route("/quiz/<id_>", methods=["GET", "POST"])
 def quiz(id_):
     if not Quiz.query.get(id_):
-        return render_template("noquiz.html")
+        return render_template("noquiz.html", id_=request.cookies.get("quiz"))
     form = QuizForm()
 
     if form.validate_on_submit():
@@ -90,7 +90,7 @@ def quizanswers(id_):
     id_b10 = int(id_)
     quiz = Quiz.query.get(id_b10)
     if not quiz:
-        return render_template("noquiz.html",)
+        return render_template("noquiz.html", id_=request.cookies.get("quiz"))
     page = request.args.get("page") or 1
     answers_quiz = quiz.answers.all()
     answers_ordered = sorted(answers_quiz, key=lambda a: a.score())
