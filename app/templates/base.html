@@ -18,15 +18,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <div class="alert alert-dismissible text-center cookiealert" role="alert">
       <div class="cookiealert-container text-white">
-           Ich mag Cookies. und du?<a href="#" target="_blank">Mehr</a>
+           Diese Website benutzt Cookies
 
           <button type="button" class="btn btn-primary btn-sm acceptcookies bg-success" aria-label="Close">
-              Akzeptieren
+              Verstanden
           </button>
       </div>
-    </div>
-    <div class="float-left align-middle ad">
-      <img src="http://www.bgmpro.de/media/BGM-Banner/BGO_BN_sky.jpg" alt="ad">
     </div>
   </head>
   <body>
@@ -42,7 +39,7 @@
       <div class="bg-dark">
         <div class="container">
           <nav class="navbar navbar-dark bg-dark box-shadow">
-            <a class="navbar-brand d-flex align-items-center text-white" href="{{ url_for('index') }}">Title</a>
+            <a class="navbar-brand d-flex align-items-center text-white" href="{{ url_for('index') }}">MyQuiz</a>
             {% if id_ %}
             <a href="{{ url_for('quiz', id_=id_) }}"><button type="button" name="myquiz" class="btn btn-outline-success my-2 my-sm-0" href="{{ url_for('quiz', id_=id_) }}">Mein Quiz</button></a>
             {% else %}
@@ -61,7 +58,7 @@
         </p>
         <p>&copy; 2019 - Ben Hurensöhn - Alle Rechte vorbehalten</p>
         {% if id_ %}
-        <input class="url form-control" data-toggle="tooltip" readonly type="text" value="{{'http://127.0.0.1:5000'+url_for('quiz', id_=id_)}}" id="myInput"></input>
+        <input class="url form-control" data-toggle="tooltip" readonly type="text" value="{{'https://myquiz.eu'+url_for('quiz', id_=id_)}}" id="myInput"></input>
         {% endif %}
         <a href="whatsapp://send?text=text123" target="_blank">
           <button type="button" class="btn btn-success"><i class="fab fa-whatsapp"></i></button>
