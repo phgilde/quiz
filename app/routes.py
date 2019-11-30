@@ -61,7 +61,7 @@ def quiz(id_):
     if not Quiz.query.get(id_):
         return render_template("noquiz.html", id_=request.cookies.get("quiz"))
     form = QuizForm()
-
+    name = Quiz.query.get(id_).name
     if form.validate_on_submit():
         flash("Quiz abgeschickt!")
         name = form.name.data
@@ -79,7 +79,7 @@ def quiz(id_):
     if request.cookies.get(id_):
         return redirect(url_for("quizanswers", id_=id_))
     else:
-        return render_template("quiz.html", form=form, questions=questions, answers=answers, id_=request.cookies.get("quiz"))
+        return render_template("quiz.html", form=form, questions=questions, answers=answers, id_=request.cookies.get("quiz"), name=name)
 
 
 @app.route("/a/<id_>")
@@ -102,8 +102,10 @@ def quizanswers(id_):
     correct_answers = quiz.correct_answers.split()
 
     correct_answers = [answer[int(correct_answer)] for answer, correct_answer in zip(answers, correct_answers)]
+
+    name = quiz.name
     return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions, correct_answers), id_=request.cookies.get("quiz"))
+                           correct_answers=zip(questions, correct_answers), id_=request.cookies.get("quiz"), name=name)
 
 
 @app.errorhandler(404)
