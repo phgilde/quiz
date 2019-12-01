@@ -16,6 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" />
     <div class="alert alert-dismissible text-center cookiealert" role="alert">
       <div class="cookiealert-container text-white">
            Diese Website benutzt Cookies.
@@ -39,7 +40,7 @@
       <div class="bg-dark">
         <div class="container">
           <nav class="navbar navbar-dark bg-dark box-shadow">
-            <a class="navbar-brand d-flex align-items-center text-white" href="{{ url_for('index') }}">MyQuiz</a>
+            <a class="navbar-brand d-flex align-items-center text-white" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
             {% if id_ %}
             <a href="{{ url_for('quiz', id_=id_) }}"><button type="button" name="myquiz" class="btn btn-outline-success my-2 my-sm-0" href="{{ url_for('quiz', id_=id_) }}">Mein Quiz</button></a>
             {% else %}
