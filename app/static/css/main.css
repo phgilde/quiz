@@ -1,6 +1,9 @@
 body {
   background-color: #FFFFFF;
 }
+.conent {
+  background-color: #F8F9FA;
+}
 .ad {
   max-width: 10em;
   width: 5em;
