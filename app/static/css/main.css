@@ -1,5 +1,9 @@
 body {
-  background-color: #FFFFFF;
+  background-color: #EfEFEFEF;
+}
+button {
+  padding: 3em;
+  font-size: 1em;
 }
 .footer {
   padding-top: 60px;
