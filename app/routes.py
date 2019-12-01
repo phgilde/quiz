@@ -6,7 +6,7 @@ from flask import (flash, make_response, redirect, render_template, request,
 from app import app, db
 from app.forms import QuizForm
 from app.models import Answer, Quiz
-from app.quiz import answers, questions
+from app.quiz import answers, questions, questiontexts_name, questiontexts_new
 from app.config import Config
 
 
@@ -51,7 +51,7 @@ def newquiz():
             return resp
 
     return render_template("newquiz.html", form=form,
-                           questions=questions,
+                           questions=questiontexts_new,
                            answers=answers, id_=request.cookies.get("quiz"))
 
 
@@ -79,7 +79,7 @@ def quiz(id_):
     if request.cookies.get(id_):
         return redirect(url_for("quizanswers", id_=id_))
     else:
-        return render_template("quiz.html", form=form, questions=questions, answers=answers, id_=request.cookies.get("quiz"), name=name)
+        return render_template("quiz.html", form=form, questions=[x.format(name) for x in questiontexts_name], answers=answers, id_=request.cookies.get("quiz"), name=name, title=f"Wie gut kennst du {name}?")
 
 
 @app.route("/a/<id_>")
@@ -105,7 +105,7 @@ def quizanswers(id_):
 
     name = quiz.name
     return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions, correct_answers), id_=request.cookies.get("quiz"), name=name)
+                           correct_answers=zip(questions, correct_answers), id_=request.cookies.get("quiz"), name=name, max_score=len(correct_answers))
 
 
 @app.errorhandler(404)
