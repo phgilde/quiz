@@ -1,5 +1,12 @@
 body {
-  background-color: #FFFFFF;
+  background-color: #EfEFEFEF;
+}
+button {
+  padding: 3em;
+  font-size: 1em;
+}
+.footer {
+  padding-top: 60px;
 }
 .logo {
   width: 4.5em;
@@ -60,9 +67,9 @@ body {
 .jumbotron {
   background-color: #FFFFFF;
 }
-.content {
-  min-height: 90vh;
+.container {
 }
+
 .inhalt {
   width: 100%;
   background-color: #F8F9FA;
