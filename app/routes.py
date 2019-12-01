@@ -59,7 +59,10 @@ def newquiz():
 # @app.route("/quiz/<id_>", methods=["GET", "POST"])
 def quiz(id_):
     if not Quiz.query.get(id_):
-        return render_template("noquiz.html", id_=request.cookies.get("quiz"))
+        response = make_response(render_template("noquiz.html"))
+        if request.cookies.get("quiz") == id_:
+            response.set_cookie("quiz", "", expires=0)
+        return response
     form = QuizForm()
     name = Quiz.query.get(id_).name
     if form.validate_on_submit():
