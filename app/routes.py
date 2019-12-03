@@ -38,7 +38,6 @@ def newquiz():
                 db.session.commit()
                 redirect(url_for("index"))
         else:
-
             # new quiz entry
             quiz = Quiz(name=name)
             db.session.add(quiz)
@@ -47,7 +46,7 @@ def newquiz():
                 for j in range(len(answers[i])):
                     db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == answers_form[i])))
             db.session.commit()
-
+            id_ = quiz.id_
             resp = make_response(redirect(url_for("index")))
             resp.set_cookie("quiz", str(id_))
             resp.set_cookie(str(id_), "True")
