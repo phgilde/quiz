@@ -30,20 +30,24 @@ def newquiz():
         if request.cookies.get("quiz"):
             if Quiz.query.get(request.cookies.get("quiz")):
                 flash("Quiz geändert!")
-                Quiz.query.get(request.cookies.get("quiz")).name = name
-                Quiz.query.get(request.cookies.get("quiz")).correct_answers = " ".join(answers_form)
+                quiz = Quiz.query.get(request.cookies.get("quiz"))
+                quiz.name = name
+                for i in range(len(answers_form)):
+                    for j in range(len(answers[i])):
+                        Answer.query.filter_by(text=answers[i][j], question.quiz=quiz).first().correct_answer = (j == answers_form[i])
                 db.session.commit()
                 redirect(url_for("index"))
         else:
-            # 64 ** 10 - 1
-            id_ = randint(0, 10**10 - 1)
 
             # new quiz entry
-            quiz = Quiz(id_=id_, name=name, correct_answers=" ".join(answers_form))
+            quiz = Quiz(name=name)
             db.session.add(quiz)
+            for i in range(len(answers_form)):
+                question = Question(text=question[i], quiz=quiz)
+                for j in range(len(answers[i])):
+                    db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == answers_form[i])))
             db.session.commit()
 
-            # quiz id as base64
             resp = make_response(redirect(url_for("index")))
             resp.set_cookie("quiz", str(id_))
             resp.set_cookie(str(id_), "True")
