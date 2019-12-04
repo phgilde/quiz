@@ -81,7 +81,7 @@ def quiz(id_):
         db.session.commit()
 
         resp = make_response(redirect(url_for("quizanswers", id_=id_)))
-        resp.set_cookie(id_, "True")
+        resp.set_cookie(id_, "guess.id_")
         return resp
 
     if request.cookies.get(id_):
@@ -110,15 +110,24 @@ def quizanswers(id_):
 
     questions_corr, answers_corr = [], []
 
-    for q in quiz.questions:
+    for q in sorted(quiz.questions, key=lambda x: x.id_):
         for a in q.answers:
-            if a.correct_answer == True:
+            if a.correct_answer:
                 questions_corr.append(q.text)
                 answers_corr.append(a.text)
-
+    
+    try:
+        user_guess = Guess.query.get(int(request.cookies.get(id_)))
+    except ValueError:
+        user_guess = Guess.query.first()
+    user_answers = []
+    for answer in sorted(user_guess.answer_guesses, key=lambda x: x.answer.question.id_):
+        user_answers.append(answer.answer.text)
     name = quiz.name
     return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions_corr, answers_corr), id_=request.cookies.get("quiz"), name=name, max_score=len(questions))
+                           correct_answers=zip(questions_corr, answers_corr),
+                           id_=request.cookies.get("quiz"), name=name,
+                           max_score=len(questions), user_answers=user_answers)
 
 
 @app.errorhandler(404)
