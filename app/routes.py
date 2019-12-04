@@ -5,7 +5,7 @@ from flask import (flash, make_response, redirect, render_template, request,
 
 from app import app, db
 from app.forms import QuizForm
-from app.models import Answer, Quiz
+from app.models import Quiz, Question, Answer, Guess, AnswerGuess
 from app.quiz import answers, questions, questiontexts_name, questiontexts_new
 from app.config import Config
 
@@ -34,7 +34,7 @@ def newquiz():
                 quiz.name = name
                 for i in range(len(answers_form)):
                     for j in range(len(answers[i])):
-                        Answer.query.filter_by(text=answers[i][j], question.quiz=quiz).first().correct_answer = (j == answers_form[i])
+                        Answer.query.filter(db.and_(text == answers[i][j], question.quiz == quiz)).first().correct_answer = (j == answers_form[i])
                 db.session.commit()
                 redirect(url_for("index"))
         else:
@@ -42,9 +42,9 @@ def newquiz():
             quiz = Quiz(name=name)
             db.session.add(quiz)
             for i in range(len(answers_form)):
-                question = Question(text=question[i], quiz=quiz)
+                question = Question(text=questions[i], quiz=quiz)
                 for j in range(len(answers[i])):
-                    db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == answers_form[i])))
+                    db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == int(answers_form[i]))))
             db.session.commit()
             id_ = quiz.id_
             resp = make_response(redirect(url_for("index")))
@@ -63,19 +63,21 @@ def newquiz():
 def quiz(id_):
     if not Quiz.query.get(id_):
         response = make_response(render_template("noquiz.html"))
+        # remove cookie if quiz doesnt exist
         if request.cookies.get("quiz") == id_:
             response.set_cookie("quiz", "", expires=0)
         return response
     form = QuizForm()
-    name = Quiz.query.get(id_).name
+    quiz = Quiz.query.get(id_)
     if form.validate_on_submit():
         flash("Quiz abgeschickt!")
         name = form.name.data
         answers_form = form.answers.data.split()
 
-        answer = Answer(name=name, answers=" ".join(answers_form),
-                        quiz=Quiz.query.get(id_))
-        db.session.add(answer)
+        guess = Guess(name=name, quiz=Quiz.query.get(id_))
+        db.session.add(guess)
+        for i in range(len(answers_form)):
+            db.session.add(AnswerGuess(guess=guess, answer=Answer.query.filter(db.and_(Answer.question.has(quiz=quiz), Answer.text == answers[i][int(answers_form[i])])).first()))
         db.session.commit()
 
         resp = make_response(redirect(url_for("quizanswers", id_=id_)))
@@ -85,7 +87,7 @@ def quiz(id_):
     if request.cookies.get(id_):
         return redirect(url_for("quizanswers", id_=id_))
     else:
-        return render_template("quiz.html", form=form, questions=[x.format(name) for x in questiontexts_name], answers=answers, id_=request.cookies.get("quiz"), name=name, title=f"Wie gut kennst du {name}?")
+        return render_template("quiz.html", form=form, questions=[x.format(quiz.name) for x in questiontexts_name], answers=answers, id_=request.cookies.get("quiz"), name=quiz.name, title=f"Wie gut kennst du {quiz.name}?")
 
 
 @app.route("/a/<id_>")
@@ -94,24 +96,29 @@ def quizanswers(id_):
         return redirect(url_for("quiz", id_=id_))
 
     id_b10 = int(id_)
-    quiz = Quiz.query.get(id_b10)
+    quiz = Quiz.query.get(id_)
     if not quiz:
         return render_template("noquiz.html", id_=request.cookies.get("quiz"))
     page = request.args.get("page") or 1
-    answers_quiz = quiz.answers.all()
+
+    answers_quiz = quiz.guesses.all()
     answers_ordered = sorted(answers_quiz, key=lambda a: a.score())
     answers_page = answers_ordered[Config.ANSWERS_PER_PAGE*(page-1):
                                    Config.ANSWERS_PER_PAGE*(page)]
     names = [answer.name for answer in answers_page]
     scores = [answer.score() for answer in answers_page]
 
-    correct_answers = quiz.correct_answers.split()
+    questions_corr, answers_corr = [], []
 
-    correct_answers = [answer[int(correct_answer)] for answer, correct_answer in zip(answers, correct_answers)]
+    for q in quiz.questions:
+        for a in q.answers:
+            if a.correct_answer == True:
+                questions_corr.append(q.text)
+                answers_corr.append(a.text)
 
     name = quiz.name
     return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions, correct_answers), id_=request.cookies.get("quiz"), name=name, max_score=len(correct_answers))
+                           correct_answers=zip(questions_corr, answers_corr), id_=request.cookies.get("quiz"), name=name, max_score=len(questions))
 
 
 @app.errorhandler(404)

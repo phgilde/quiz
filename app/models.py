@@ -1,6 +1,7 @@
 from app import db
 from app.config import Config
 import random
+from sqlalchemy.ext.hybrid import hybrid_property
 
 
 def id_gen():
@@ -17,26 +18,33 @@ class Quiz(db.Model):
 class Question(db.Model):
     id_ = db.Column(db.Integer, primary_key=True, default=id_gen)
     text = db.Column(db.String(length=255))
-    quiz_id = db.Column(db.Integer, foreign_key="quiz.id_")
+    quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id_"))
     answers = db.relationship("Answer", backref="question", lazy="dynamic")
 
 
 class Answer(db.Model):
     id_ = db.Column(db.Integer, primary_key=True, default=id_gen)
     text = db.Column(db.String(length=255))
-    question_id = db.Column(db.Integer, foreign_key="question.id_")
+    question_id = db.Column(db.Integer, db.ForeignKey("question.id_"))
     correct_answer = db.Column(db.Boolean)
     answer_guesses = db.relationship("AnswerGuess", backref="answer", lazy="dynamic")
 
 
 class Guess(db.Model):
     id_ = db.Column(db.Integer, primary_key=True, default=id_gen)
-    quiz_id = db.Column(db.Integer, foreign_key="quiz.id_")
+    quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id_"))
     name = db.Column(db.String(length=255))
     answer_guesses = db.relationship("AnswerGuess", backref="guess", lazy="dynamic")
+
+    def score(self):
+        result = 0
+        for answer_guess in AnswerGuess.query.filter_by(guess_id=self.id_):
+            if answer_guess.answer.correct_answer:
+                result += 1
+        return result
 
 
 class AnswerGuess(db.Model):
     id_ = db.Column(db.Integer, primary_key=True, default=id_gen)
-    guess_id = db.Column(db.Integer, foreign_key="guess.id_")
-    answer_id = db.Column(db.Integer, foreign_key="answer.id_")
+    guess_id = db.Column(db.Integer, db.ForeignKey("guess.id_"))
+    answer_id = db.Column(db.Integer, db.ForeignKey("answer.id_"))
