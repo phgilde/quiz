@@ -20,6 +20,7 @@ class Question(db.Model):
     text = db.Column(db.String(length=255))
     quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id_"))
     answers = db.relationship("Answer", backref="question", lazy="dynamic")
+    index = db.Column(db.Integer)
 
 
 class Answer(db.Model):
