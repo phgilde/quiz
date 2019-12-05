@@ -42,7 +42,7 @@ def newquiz():
             quiz = Quiz(name=name)
             db.session.add(quiz)
             for i in range(len(answers_form)):
-                question = Question(text=questions[i], quiz=quiz)
+                question = Question(text=questions[i], quiz=quiz, index=i)
                 for j in range(len(answers[i])):
                     db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == int(answers_form[i]))))
             db.session.commit()
@@ -110,7 +110,7 @@ def quizanswers(id_):
 
     questions_corr, answers_corr = [], []
 
-    for q in sorted(quiz.questions, key=lambda x: x.id_):
+    for q in sorted(quiz.questions, key=lambda x: x.index):
         for a in q.answers:
             if a.correct_answer:
                 questions_corr.append(q.text)
@@ -127,7 +127,7 @@ def quizanswers(id_):
         except ValueError:
             user_guess = Guess.query.first()
         user_answers = []
-        for answer in sorted(user_guess.answer_guesses, key=lambda x: x.answer.question.id_):
+        for answer in sorted(user_guess.answer_guesses, key=lambda x: x.answer.question.index):
             user_answers.append(answer.answer.text)
         return render_template("quizanswers.html", answers=zip(names, scores),
                                correct_answers=zip(questions_corr, answers_corr, user_answers),
