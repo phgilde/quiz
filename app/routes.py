@@ -115,19 +115,25 @@ def quizanswers(id_):
             if a.correct_answer:
                 questions_corr.append(q.text)
                 answers_corr.append(a.text)
-    
-    try:
-        user_guess = Guess.query.get(int(request.cookies.get(id_)))
-    except ValueError:
-        user_guess = Guess.query.first()
-    user_answers = []
-    for answer in sorted(user_guess.answer_guesses, key=lambda x: x.answer.question.id_):
-        user_answers.append(answer.answer.text)
-    name = quiz.name
-    return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions_corr, answers_corr, user_answers),
-                           id_=request.cookies.get("quiz"), name=name,
-                           max_score=len(questions))
+
+    if request.cookies.get("quiz") == id_:
+        return render_template("quizanswers.html", answers=zip(names, scores),
+                               correct_answers=zip(questions_corr, answers_corr, [None for i in range(len(answers_corr))]),
+                               id_=request.cookies.get("quiz"), name=quiz.name,
+                               max_score=len(questions))
+    else:
+        try:
+            user_guess = Guess.query.get(int(request.cookies.get(id_)))
+        except ValueError:
+            user_guess = Guess.query.first()
+        user_answers = []
+        for answer in sorted(user_guess.answer_guesses, key=lambda x: x.answer.question.id_):
+            user_answers.append(answer.answer.text)
+        return render_template("quizanswers.html", answers=zip(names, scores),
+                               correct_answers=zip(questions_corr, answers_corr, user_answers),
+                               id_=request.cookies.get("quiz"), name=quiz.name,
+                               max_score=len(questions))
+
 
 
 @app.errorhandler(404)
