@@ -11,10 +11,11 @@
       </table>
       <p>Richtige Lösungen: </p>
       <table class="table table-bordered">
-              {% for question, answer in correct_answers %}
+              {% for question, answer, user_answer in correct_answers %}
               <tr>
                   <td scope="row">{{question}}</td>
                   <td>{{answer}}</td>
+                  <td>{{user_answer}}</td>
               </tr>
               {% endfor %}
           </table>

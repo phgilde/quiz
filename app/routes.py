@@ -125,9 +125,9 @@ def quizanswers(id_):
         user_answers.append(answer.answer.text)
     name = quiz.name
     return render_template("quizanswers.html", answers=zip(names, scores),
-                           correct_answers=zip(questions_corr, answers_corr),
+                           correct_answers=zip(questions_corr, answers_corr, user_answers),
                            id_=request.cookies.get("quiz"), name=name,
-                           max_score=len(questions), user_answers=user_answers)
+                           max_score=len(questions))
 
 
 @app.errorhandler(404)
