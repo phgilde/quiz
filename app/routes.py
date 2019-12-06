@@ -102,7 +102,7 @@ def quizanswers(id_):
     page = request.args.get("page") or 1
 
     answers_quiz = quiz.guesses.all()
-    answers_ordered = sorted(answers_quiz, key=lambda a: a.score())
+    answers_ordered = sorted(answers_quiz, key=lambda a: a.score(), reverse=True)
     answers_page = answers_ordered[Config.ANSWERS_PER_PAGE*(page-1):
                                    Config.ANSWERS_PER_PAGE*(page)]
     names = [answer.name for answer in answers_page]
