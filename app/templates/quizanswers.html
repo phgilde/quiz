@@ -11,7 +11,7 @@
       </table>
       <table class="table table-bordered">
           <tr>
-              <th>Richtige Lösungen:</th><th></th><th>Deine Antwort</th>
+              <th>Richtige Lösungen:</th><th></th>{% if user_answer %}<th>Deine Antwort</th>{% endif %}
           </tr>
               {% for question, answer, user_answer in correct_answers %}
               <tr>

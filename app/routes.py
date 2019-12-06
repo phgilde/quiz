@@ -95,7 +95,7 @@ def quizanswers(id_):
     if not request.cookies.get(id_):
         return redirect(url_for("quiz", id_=id_))
 
-    id_b10 = int(id_)
+    id_ = int(id_)
     quiz = Quiz.query.get(id_)
     if not quiz:
         return render_template("noquiz.html", id_=request.cookies.get("quiz"))
@@ -123,7 +123,7 @@ def quizanswers(id_):
                                max_score=len(questions))
     else:
         try:
-            user_guess = Guess.query.get(int(request.cookies.get(id_)))
+            user_guess = Guess.query.get(int(request.cookies.get(str(id_))))
         except ValueError:
             user_guess = Guess.query.first()
         user_answers = []
@@ -132,7 +132,7 @@ def quizanswers(id_):
         return render_template("quizanswers.html", answers=zip(names, scores),
                                correct_answers=zip(questions_corr, answers_corr, user_answers),
                                id_=request.cookies.get("quiz"), name=quiz.name,
-                               max_score=len(questions))
+                               max_score=len(questions), id=id_)
 
 
 
