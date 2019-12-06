@@ -9,3 +9,6 @@ class Config(object):
         or "sqlite:///" + os.path.join(basedir, "app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ANSWERS_PER_PAGE = 10
+
+    MIN_ID = 10**10
+    MAX_ID = 10**11

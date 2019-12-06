@@ -9,12 +9,15 @@
           <p>{{name}} hat {{score}} erreicht</p><div class="progress" style="width: 20em;"><div class="progress-bar bg-success" role="progressbar" style="width: {{100*(score/max_score)}}%;" aria-valuenow="{{score}}" aria-valuemin="0" aria-valuemax="{{max_score}}">{{score}}/{{max_score}}</div></div>
           {% endfor %}
       </table>
-      <p>Richtige Lösungen: </p>
       <table class="table table-bordered">
-              {% for question, answer in correct_answers %}
+          <tr>
+              <th>Richtige Lösungen:</th><th></th>{% if user_answer %}<th>Deine Antwort</th>{% endif %}
+          </tr>
+              {% for question, answer, user_answer in correct_answers %}
               <tr>
                   <td scope="row">{{question}}</td>
                   <td>{{answer}}</td>
+                  {% if user_answer %}<td>{{user_answer}}</td>{% endif %}
               </tr>
               {% endfor %}
           </table>
