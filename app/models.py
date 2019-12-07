@@ -18,6 +18,7 @@ class Quiz(db.Model):
 class Question(db.Model):
     id_ = db.Column(db.Integer, primary_key=True, default=id_gen)
     text = db.Column(db.String(length=255))
+    text_long = db.Column(db.String(length=255))
     quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id_"))
     answers = db.relationship("Answer", backref="question", lazy="dynamic")
     index = db.Column(db.Integer)

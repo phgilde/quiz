@@ -42,7 +42,7 @@ def newquiz():
             quiz = Quiz(name=name)
             db.session.add(quiz)
             for i in range(len(answers_form)):
-                question = Question(text=questions[i], quiz=quiz, index=i)
+                question = Question(text=questions[i], quiz=quiz, index=i, text_long=questiontexts_name[i])
                 for j in range(len(answers[i])):
                     db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == int(answers_form[i]))))
             db.session.commit()
@@ -59,7 +59,6 @@ def newquiz():
 
 
 @app.route("/q/<id_>", methods=["GET", "POST"])
-# @app.route("/quiz/<id_>", methods=["GET", "POST"])
 def quiz(id_):
     if not Quiz.query.get(id_):
         response = make_response(render_template("noquiz.html"))
@@ -87,7 +86,9 @@ def quiz(id_):
     if request.cookies.get(id_):
         return redirect(url_for("quizanswers", id_=id_))
     else:
-        return render_template("quiz.html", form=form, questions=[x.format(quiz.name) for x in questiontexts_name], answers=answers, id_=request.cookies.get("quiz"), name=quiz.name, title=f"Wie gut kennst du {quiz.name}?")
+        return render_template("quiz.html", form=form, questions=[question.text_long.format(quiz.name) for question in quiz.questions],
+                               answers=[[answer.text for answer in question.answers] for question in quiz.questions],
+                               id_=request.cookies.get("quiz"), name=quiz.name, title=f"Wie gut kennst du {quiz.name}?")
 
 
 @app.route("/a/<id_>")
