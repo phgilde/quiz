@@ -26,32 +26,20 @@ def newquiz():
         name = form.name.data
         answers_form = form.answers.data.split()
 
-        # if quiz already exsists
-        if request.cookies.get("quiz"):
-            if Quiz.query.get(request.cookies.get("quiz")):
-                flash("Quiz geändert!")
-                quiz = Quiz.query.get(request.cookies.get("quiz"))
-                quiz.name = name
-                for i in range(len(answers_form)):
-                    for j in range(len(answers[i])):
-                        Answer.query.filter(db.and_(text == answers[i][j], question.quiz == quiz)).first().correct_answer = (j == answers_form[i])
-                db.session.commit()
-                redirect(url_for("index"))
-        else:
-            # new quiz entry
-            quiz = Quiz(name=name)
-            db.session.add(quiz)
-            for i in range(len(answers_form)):
-                question = Question(text=questions[i], quiz=quiz, index=i, text_long=questiontexts_name[i])
-                for j in range(len(answers[i])):
-                    db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == int(answers_form[i]))))
-            db.session.commit()
-            id_ = quiz.id_
-            resp = make_response(redirect(url_for("index")))
-            resp.set_cookie("quiz", str(id_))
-            resp.set_cookie(str(id_), "True")
+        # new quiz entry
+        quiz = Quiz(name=name)
+        db.session.add(quiz)
+        for i in range(len(answers_form)):
+            question = Question(text=questions[i], quiz=quiz, index=i, text_long=questiontexts_name[i])
+            for j in range(len(answers[i])):
+                db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == int(answers_form[i]))))
+        db.session.commit()
+        id_ = quiz.id_
+        resp = make_response(redirect(url_for("index")))
+        resp.set_cookie("quiz", str(id_))
+        resp.set_cookie(str(id_), "True")
 
-            return resp
+        return resp
 
     return render_template("newquiz.html", form=form,
                            questions=questiontexts_new,
