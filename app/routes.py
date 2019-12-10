@@ -32,10 +32,12 @@ def newquiz():
         for i in range(len(answers_form)):
             question = Question(text=questions[i], quiz=quiz, index=i, text_long=questiontexts_name[i])
             for j in range(len(answers[i])):
-                db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(j == int(answers_form[i]))))
+                db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(answers[i][j] == int(answers_form[i]))))
+            if answers_form[i] not in answers[i]:
+                db.session.add(Answer(text=answers_form[i], question=question, correct_answer=True))
         db.session.commit()
         id_ = quiz.id_
-        resp = make_response(redirect(url_for("index")))
+        resp = make_response(redirect(url_for("quiz", id_=id_)))
         resp.set_cookie("quiz", str(id_))
         resp.set_cookie(str(id_), "True")
 
