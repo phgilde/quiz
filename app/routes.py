@@ -8,7 +8,7 @@ from app.forms import QuizForm
 from app.models import Quiz, Question, Answer, Guess, AnswerGuess
 from app.quiz import answers, questions, questiontexts_name, questiontexts_new
 from app.config import Config
-
+import sys
 
 @app.route("/index")
 @app.route("/")
@@ -24,7 +24,7 @@ def newquiz():
         flash("quiz abgeschickt!")
         # get answers
         name = form.name.data
-        answers_form = form.answers.data.split()
+        answers_form = form.answers.data.split(sep=";")
 
         # new quiz entry
         quiz = Quiz(name=name)
@@ -32,7 +32,7 @@ def newquiz():
         for i in range(len(answers_form)):
             question = Question(text=questions[i], quiz=quiz, index=i, text_long=questiontexts_name[i])
             for j in range(len(answers[i])):
-                db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(answers[i][j] == int(answers_form[i]))))
+                db.session.add(Answer(text=answers[i][j], question=question, correct_answer=(answers[i][j] == answers_form[i])))
             if answers_form[i] not in answers[i]:
                 db.session.add(Answer(text=answers_form[i], question=question, correct_answer=True))
         db.session.commit()

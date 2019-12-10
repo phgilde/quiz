@@ -14,7 +14,7 @@ run = function (questions, answers) {
                 $("form").show();
                 $("form :text").hide();
                 $("form #name").val(name);
-                $("form #answers").val(result.join(" "));
+                $("form #answers").val(result.join(";"));
             }
 
             $("#question").html(questions[i]);
