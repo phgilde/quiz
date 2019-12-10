@@ -108,7 +108,7 @@ def quizanswers(id_):
                 answers_corr.append(a.text)
 
     if request.cookies.get("quiz") == id_:
-        return render_template("quizanswers.html", answers=zip(names, scores),
+        return render_template("quizanswers.html", guesses=sorted(quiz.guesses, key=lambda x: x.score(), reverse=True),
                                correct_answers=zip(questions_corr, answers_corr, [None for i in range(len(answers_corr))]),
                                id_=request.cookies.get("quiz"), name=quiz.name,
                                max_score=len(questions))

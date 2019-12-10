@@ -5,8 +5,8 @@
     <div class="card">
       <div class="container py-5">
       <table class="table table-bordered">
-          {% for name, score in answers %}
-          <p>{{name}} hat {{score}} erreicht</p><div class="progress" style="width: 20em;"><div class="progress-bar bg-success" role="progressbar" style="width: {{100*(score/max_score)}}%;" aria-valuenow="{{score}}" aria-valuemin="0" aria-valuemax="{{max_score}}">{{score}}/{{max_score}}</div></div>
+          {% for guess in guesses %}
+          <p>{{guess.name}} hat {{guess.score()}} erreicht</p><div class="progress" style="width: 20em;"><div class="progress-bar bg-success" role="progressbar" style="width: {{100*(guess.score()/max_score)}}%;" aria-valuenow="{{guess.score()}}" aria-valuemin="0" aria-valuemax="{{max_score}}">{{score}}/{{max_score}}</div></div>
           {% endfor %}
       </table>
       <table class="table table-bordered">
