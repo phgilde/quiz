@@ -110,7 +110,7 @@ def quizanswers(id_):
     if request.cookies.get("quiz") == str(id_):
         return render_template("quizanswers.html", guesses=sorted(quiz.guesses, key=lambda x: x.score(), reverse=True),
                                correct_answers=zip(questions_corr, answers_corr, [None for i in range(len(answers_corr))]),
-                               id_=request.cookies.get("quiz"), name=quiz.name,
+                               id_=id_, name=quiz.name,
                                max_score=len(questions))
     else:
         try:
