@@ -113,10 +113,7 @@ def quizanswers(id_):
                                id_=id_, name=quiz.name,
                                max_score=len(questions))
     else:
-        try:
-            user_guess = Guess.query.get(int(request.cookies.get(str(id_))))
-        except ValueError:
-            user_guess = Guess.query.first()
+        user_guess = Guess.query.get(int(request.cookies.get(str(id_)) or 0))
         user_answers = []
         for answer in sorted(user_guess.answer_guesses, key=lambda x: x.answer.question.index):
             user_answers.append(answer.answer.text)
