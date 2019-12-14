@@ -122,7 +122,7 @@ def quizanswers(id_):
             user_answers.append(answer.answer.text)
         return render_template("quizanswers.html", answers=zip(names, scores),
                                correct_answers=zip(questions_corr, answers_corr, user_answers),
-                               id_=request.cookies.get("quiz"), name=quiz.name,
+                                id_=id_, name=quiz.name,
                                max_score=len(questions), id=id_)
 
 
