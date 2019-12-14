@@ -70,7 +70,7 @@ def quiz(id_):
         db.session.commit()
 
         resp = make_response(redirect(url_for("quizanswers", id_=id_)))
-        resp.set_cookie(id_, "guess.id_")
+        resp.set_cookie(id_, str(guess.id_))
         return resp
 
     if request.cookies.get(id_):
