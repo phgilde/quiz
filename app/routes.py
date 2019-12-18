@@ -123,12 +123,3 @@ def quizanswers(id_):
                                max_score=len(questions), id=id_)
 
 
-
-@app.errorhandler(404)
-def error_404(err):
-    return render_template("err404.html", id_=request.cookies.get("quiz"))
-
-
-@app.errorhandler(500)
-def error_500(err):
-    return render_template("err500.html", id_=request.cookies.get("quiz"))
