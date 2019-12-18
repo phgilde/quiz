@@ -3,7 +3,8 @@ from app.config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import logging
-from logging.handlers import SMTPHandler
+from logging.handlers import SMTPHandler, RotatingFileHandler
+import os
 
 
 app = Flask(__name__)
@@ -24,6 +25,19 @@ if not app.debug:
             secure = ()
         mail_handler = SMTPHandler(
             mailhost=(app.config["MAIL_SERVER"], app.config["MAIL_PORT"]),
-            fromaddr="logging@"+app.config["MAIL_SERVER"],
-            to_addrs=app.config["ADMINS"], subject="MyQuiz Fehler"
+            fromaddr="logging@" + app.config["MAIL_SERVER"],
+            to_addrs=app.config["ADMINS"],
+            subject="MyQuiz Fehler",
+            credentials=auth,
+            secure=secure,
         )
+        mail_handler.set_level(logging.ERROR)
+        app.logger.addHandler(mail_handler)
+
+    if not os.path.exists("logs"):
+        os.mkdir("logs")
+    file_handler = RotatingFileHandler("logs/myquiz.log", maxBytes=10240, backupcount=10)
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+    app.logger.set_level(logging.INFO)
+    app.logger.info("MyQuiz starting")
