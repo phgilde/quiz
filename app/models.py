@@ -1,5 +1,4 @@
 from app import db
-from app.config import Config
 import random
 from sqlalchemy.ext.hybrid import hybrid_property
 
