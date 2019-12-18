@@ -1,6 +1,6 @@
 from app import db
 import random
-from sqlalchemy.ext.hybrid import hybrid_property
+from app import app
 
 
 def id_gen():

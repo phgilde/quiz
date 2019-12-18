@@ -11,7 +11,6 @@ from app import app, db
 from app.forms import QuizForm
 from app.models import Quiz, Question, Answer, Guess, AnswerGuess
 from app.quiz import answers, questions, questiontexts_name, questiontexts_new
-from app.config import Config
 
 
 @app.route("/index")
@@ -113,7 +112,9 @@ def quizanswers(id_):
 
     answers_quiz = quiz.guesses.all()
     answers_ordered = sorted(answers_quiz, key=lambda a: a.score(), reverse=True)
-    answers_page = answers_ordered[app.config["ANSWERS_PER_PAGE"] * (page - 1) : app.config["ANSWERS_PER_PAGE"] * (page)]
+    answers_page = answers_ordered[
+        app.config["ANSWERS_PER_PAGE"] * (page - 1) : app.config["ANSWERS_PER_PAGE"] * (page)
+    ]
     names = [answer.name for answer in answers_page]
     scores = [answer.score() for answer in answers_page]
 
