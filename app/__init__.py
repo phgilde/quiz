@@ -39,5 +39,4 @@ if not app.debug:
     file_handler = RotatingFileHandler("logs/myquiz.log", maxBytes=10240, backupCount=10)
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
-    app.logger.set_level(logging.INFO)
     app.logger.info("MyQuiz starting")
