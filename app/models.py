@@ -5,7 +5,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 
 def id_gen():
-    return random.randint(Config.MIN_ID, Config.MAX_ID)
+    return random.randint(app.config["MIN_ID"], app.config["MAX_ID"])
 
 
 class Quiz(db.Model):
