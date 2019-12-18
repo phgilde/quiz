@@ -30,6 +30,7 @@ class Answer(db.Model):
     question_id = db.Column(db.BigInteger, db.ForeignKey("question.id_"))
     correct_answer = db.Column(db.Boolean)
     answer_guesses = db.relationship("AnswerGuess", backref="answer", lazy="dynamic")
+    image = db.Column(db.String(length=255))
 
 
 class Guess(db.Model):
