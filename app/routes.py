@@ -16,7 +16,9 @@ from app.quiz import answers, questions, questiontexts_name, questiontexts_new
 @app.route("/index")
 @app.route("/")
 def index():
-    return render_template("index.html", id_=request.cookies.get("quiz"))
+    if request.cookies.get("quiz"):
+        return redirect(url_for("quiz", id_=request.cookies.get("quiz")))
+    return render_template("index.html")
 
 
 @app.route("/newquiz", methods=["GET", "POST"])
