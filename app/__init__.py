@@ -5,12 +5,10 @@ from flask_migrate import Migrate
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
-import sys
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
-print(app.config["SQLALCHEMY_DATABASE_URI"], file=sys.stderr)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, compare_type=True)
 
