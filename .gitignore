@@ -5,3 +5,4 @@ app/__pycache__
 __pycache__
 migrations/__pycache__
 logs/myquiz.log
+.env
