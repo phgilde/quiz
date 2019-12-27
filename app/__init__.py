@@ -37,6 +37,6 @@ if not app.debug:
     if not os.path.exists("logs"):
         os.mkdir("logs")
     file_handler = RotatingFileHandler("logs/myquiz.log", maxBytes=10240, backupCount=10)
-    file_handler.setLevel(logging.ALL)
+    file_handler.setLevel(0)
     app.logger.addHandler(file_handler)
     app.logger.info("MyQuiz starting")
