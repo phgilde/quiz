@@ -6,3 +6,4 @@ __pycache__
 migrations/__pycache__
 logs/myquiz.log
 .env
+logs
