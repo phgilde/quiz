@@ -9,7 +9,7 @@
     <p class="lead text-muted">Erstelle jetzt mit nur wenigen Clicks dein eigenes Quiz und finde heraus wie gut dich deine Freunde kennen!</p>
     <p>
       {% if id_ %}
-      <a href="{{ url_for('quiz', id_=id_) }}"><button type="button" name="myquiz" class="btn btn-success my-2 my-sm-0" href="{{ url_for('quiz', id_=id_) }}">Mein Quiz</button></a>
+      <a href="{{ url_for('quiz', id_=id_) }}"><button type="button" name="myquiz" class="btn btn-success my-2 my-sm-0" href="{{ url_for('quiz', id_=quiz_id) }}">Mein Quiz</button></a>
       {% else %}
       <a href="{{ url_for('newquiz') }}"><button type="button" name="quizcreate" class="btn btn-primary my-2 my-sm-0">Quiz erstellen</button></a>
       {% endif %}

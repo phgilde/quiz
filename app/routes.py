@@ -17,7 +17,7 @@ from app.quiz import answers, questions, questiontexts_name, questiontexts_new
 @app.route("/")
 def index():
     if request.cookies.get("quiz"):
-        return redirect(url_for("quiz", id_=request.cookies.get("quiz")))
+        return redirect(url_for("quiz", quiz_id=request.cookies.get("quiz")))
     return render_template("index.html")
 
 
@@ -51,9 +51,7 @@ def newquiz():
 
         return resp
 
-    return render_template(
-        "newquiz.html", form=form, questions=questiontexts_new, answers=answers, id_=request.cookies.get("quiz"),
-    )
+    return render_template("newquiz.html", form=form, questions=questiontexts_new, answers=answers,)
 
 
 @app.route("/q/<id_>", methods=["GET", "POST"])
@@ -96,7 +94,7 @@ def quiz(id_):
             form=form,
             questions=[question.text_long.format(quiz.name) for question in quiz.questions],
             answers=[[answer.text for answer in question.answers] for question in quiz.questions],
-            id_=request.cookies.get("quiz"),
+            quiz_id=request.cookies.get("quiz"),
             name=quiz.name,
             title=f"Wie gut kennst du {quiz.name}?",
         )
@@ -147,7 +145,8 @@ def quizanswers(id_):
             "quizanswers.html",
             answers=zip(names, scores),
             correct_answers=zip(questions_corr, answers_corr, user_answers),
-            id_=id_,
+            quiz_id=request.cookies.get("quiz"),
+            curr_id=id_,
             name=quiz.name,
             max_score=len(questions),
             id=id_,
