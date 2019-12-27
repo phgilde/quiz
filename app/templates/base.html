@@ -42,7 +42,7 @@
           <nav class="navbar navbar-dark bg-dark box-shadow">
             <a class="navbar-brand d-flex align-items-center text-white" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo"></a>
             {% if id_ %}
-            <a href="{{ url_for('quiz', id_=id_) }}"><button type="button" name="myquiz" class="btn btn-outline-success my-2 my-sm-0" href="{{ url_for('quiz', id_=id_) }}">Mein Quiz</button></a>
+            <a href="{{ url_for('quiz', id_=quiz_id) }}"><button type="button" name="myquiz" class="btn btn-outline-success my-2 my-sm-0" href="{{ url_for('quiz', id_=quiz_id) }}">Mein Quiz</button></a>
             {% else %}
             <a href="{{ url_for('newquiz') }}"><button type="button" name="quizcreate" class="btn btn-outline-primary my-2 my-sm-0">Quiz erstellen</button></a>
             {% endif %}
@@ -58,8 +58,8 @@
           <a href="#"><i class="fas fa-chevron-up"></i></a>
         </p>
         <p>&copy; 2019 - MyQuiz - Alle Rechte vorbehalten</p>
-        {% if id_ %}
-        <input class="url form-control" data-toggle="tooltip" readonly type="text" value="{{'https://myquiz.eu'+url_for('quiz', id_=id_)}}" id="myInput"></input>
+        {% if quiz_id %}
+        <input class="url form-control" data-toggle="tooltip" readonly type="text" value="{{'https://myquiz.eu'+url_for('quiz', id_=quiz_id)}}" id="myInput"></input>
         {% endif %}
         <a href="whatsapp://send?text=Guck mal, mit dieser Webseite kannst du herausfinden, wie gut deine Freunde dicht kennen: myquiz.eu" target="_blank">
           <button type="button" class="btn btn-success btn-lg"><i class="fab fa-whatsapp"></i></button>
