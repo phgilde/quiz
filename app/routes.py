@@ -140,5 +140,4 @@ def quizanswers(id_):
             curr_id=id_,
             name=quiz.name,
             max_score=len(questions),
-            id=id_,
         )
