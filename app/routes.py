@@ -109,15 +109,6 @@ def quizanswers(id_):
     quiz = Quiz.query.get(id_)
     if not quiz:
         return render_template("noquiz.html", id_=request.cookies.get("quiz"))
-    page = request.args.get("page") or 1
-
-    answers_quiz = quiz.guesses.all()
-    answers_ordered = sorted(answers_quiz, key=lambda a: a.score(), reverse=True)
-    answers_page = answers_ordered[
-        app.config["ANSWERS_PER_PAGE"] * (page - 1) : app.config["ANSWERS_PER_PAGE"] * (page)
-    ]
-    names = [answer.name for answer in answers_page]
-    scores = [answer.score() for answer in answers_page]
 
     questions_corr, answers_corr = [], []
 
@@ -143,7 +134,7 @@ def quizanswers(id_):
             user_answers.append(answer.answer.text)
         return render_template(
             "quizanswers.html",
-            answers=zip(names, scores),
+            guesses=sorted(quiz.guesses, key=lambda x: x.score(), reverse=True),
             correct_answers=zip(questions_corr, answers_corr, user_answers),
             quiz_id=request.cookies.get("quiz"),
             curr_id=id_,
