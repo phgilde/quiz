@@ -132,7 +132,7 @@ def quizanswers(id_):
             "quizanswers.html",
             guesses=sorted(quiz.guesses, key=lambda x: x.score(), reverse=True),
             correct_answers=zip(questions_corr, answers_corr, [None for i in range(len(answers_corr))],),
-            id_=id_,
+            curr_id=id_,
             name=quiz.name,
             max_score=len(questions),
         )
