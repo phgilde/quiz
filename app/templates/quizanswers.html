@@ -26,10 +26,10 @@
     <div class="container">
       <p>Dieses Quiz teilen </p>
       <input class="url form-control" data-toggle="tooltip" readonly type="text" value="{{'https://myquiz.eu'+url_for('quiz', id_=curr_id)}}" id="myInput"></input>
-      <a href="whatsapp://send?text=Wie+gut+kennst+du+{{name}}?+Beantworte+einfach+ein+paar+Fragen+auf+{{'https://myquiz.eu'+url_for('quiz', id_curr_id)}}" target="_blank">
+      <a href="whatsapp://send?text=Wie+gut+kennst+du+{{name}}?+Beantworte+einfach+ein+paar+Fragen+auf+{{'https://myquiz.eu'+url_for('quiz', id_=curr_id)}}" target="_blank">
         <button type="button" class="btn btn-success btn-lg"><i class="fab fa-whatsapp"></i></button>
       </a>
-      <a href="https://twitter.com/intent/tweet?text=Wie+gut+kennst+du+{{name}}?+Beantworte+einfach+ein+paar+Fragen+auf+{{'https://myquiz.eu'+url_for('quiz', id_curr_id)}}&hashtags=sharemyquiz&original_referer=" target="_blank">
+      <a href="https://twitter.com/intent/tweet?text=Wie+gut+kennst+du+{{name}}?+Beantworte+einfach+ein+paar+Fragen+auf+{{'https://myquiz.eu'+url_for('quiz', id_=curr_id)}}&hashtags=sharemyquiz&original_referer=" target="_blank">
         <button type="button" class="btn btn-primary btn-lg"><i class="fab fa-twitter"></i></button>
       </a>
       <a>
