@@ -126,6 +126,7 @@ def quizanswers(id_):
             curr_id=id_,
             name=quiz.name,
             max_score=len(questions),
+            quiz_id=request.cookies.get("quiz"),
         )
     else:
         user_guess = Guess.query.get(int(request.cookies.get(str(id_)) or 0))
