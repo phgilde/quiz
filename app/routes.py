@@ -27,7 +27,7 @@ def newquiz():
 
     if form.validate_on_submit():
         app.logger.info(app.config["SQLALCHEMY_DATABASE_URI"])
-        flash("quiz abgeschickt!")
+        flash("Quiz abgeschickt!")
         # get answers
         name = form.name.data
         answers_form = form.answers.data.split(sep=";")
