@@ -11,7 +11,7 @@ from app import app, db
 from app.forms import QuizForm
 from app.models import Quiz, Question, Answer, Guess, AnswerGuess
 from app.quiz import answers, questions, questiontexts_name, questiontexts_new
-
+import json
 
 @app.route("/index")
 @app.route("/")
@@ -30,7 +30,7 @@ def newquiz():
         flash("Quiz abgeschickt!")
         # get answers
         name = form.name.data
-        answers_form = form.answers.data.split(sep=";")
+        answers_form = json.loads(form.answers.data)
 
         # new quiz entry
         quiz = Quiz(name=name)
@@ -67,8 +67,7 @@ def quiz(id_):
     if form.validate_on_submit():
         flash("Quiz abgeschickt!")
         name = form.name.data
-        answers_form = form.answers.data.split()
-
+        answers_form = json.loads(form.answers.data)
         guess = Guess(name=name, quiz=Quiz.query.get(id_))
         db.session.add(guess)
         for i in range(len(answers_form)):
@@ -76,7 +75,7 @@ def quiz(id_):
                 AnswerGuess(
                     guess=guess,
                     answer=Answer.query.filter(
-                        db.and_(Answer.question.has(quiz=quiz), Answer.text == answers[i][int(answers_form[i])],)
+                        db.and_(Answer.question.has(quiz=quiz), Answer.text == answers_form[i],)
                     ).first(),
                 )
             )

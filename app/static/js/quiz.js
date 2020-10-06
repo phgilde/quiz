@@ -14,12 +14,12 @@ run = function (questions, answers) {
                 $("form").show();
                 $("form :text").hide();
                 $("form #name").val(name);
-                $("form #answers").val(result.join(" "));
+                $("form #answers").val(JSON.stringify(result));
             }
 
             $("#question").html(questions[i]);
             for(var j = 0; j<answers[i].length; j++) {
-                $("#answers").append($('<button class="answers btn btn-info btn-lg"></button>').html(answers[i][j]).click(updateQuiz(j)));
+                $("#answers").append($('<button class="answers btn btn-info btn-lg"></button>').html(answers[i][j]).click(updateQuiz(answers[i][j])));
             }
 
 
