@@ -57,7 +57,7 @@ def newquiz():
 @app.route("/q/<id_>", methods=["GET", "POST"])
 def quiz(id_):
     if not Quiz.query.get(id_):
-        response = make_response(render_template("noquiz.html"))
+        response = make_response(render_template("noquiz.html", quiz_id=request.cookies.get("quiz"),))
         # remove cookie if quiz doesnt exist
         if request.cookies.get("quiz") == id_:
             response.set_cookie("quiz", "", expires=0)
