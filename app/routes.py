@@ -142,8 +142,3 @@ def quizanswers(id_):
             name=quiz.name,
             max_score=len(questions),
         )
-
-
-@app.route("/corona-lockdown-news")
-def corona():
-    return render_template("corona.html")
