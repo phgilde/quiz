@@ -1,0 +1,4 @@
+supervisorctl stop myquiz
+git pull
+flask db upgrade
+supervisorctl start myquiz
