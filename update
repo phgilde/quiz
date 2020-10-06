@@ -1,4 +1,5 @@
 supervisorctl stop myquiz
 git pull
+pip install -r requirements.txt
 flask db upgrade
 supervisorctl start myquiz
