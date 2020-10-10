@@ -76,7 +76,11 @@ def quiz(id_):
                 AnswerGuess(
                     guess=guess,
                     answer=Answer.query.filter(
-                        db.and_(Answer.question.has(quiz=quiz), Answer.text == answers_form[i],)
+                        db.and_(
+                            Answer.question.has(quiz=quiz),
+                            Answer.text == answers_form[i],
+                            Answer.question.has(index=i),
+                        )
                     ).first(),
                 )
             )
@@ -92,8 +96,13 @@ def quiz(id_):
         return render_template(
             "quiz.html",
             form=form,
-            questions=[question.text_long.format(quiz.name) for question in quiz.questions],
-            answers=[[answer.text for answer in question.answers] for question in quiz.questions],
+            questions=[
+                question.text_long.format(quiz.name) for question in sorted(quiz.questions, key=lambda x: x.index)
+            ],
+            answers=[
+                [answer.text for answer in question.answers]
+                for question in sorted(quiz.questions, key=lambda x: x.index)
+            ],
             quiz_id=request.cookies.get("quiz"),
             name=quiz.name,
             title=f"Wie gut kennst du {quiz.name}?",
