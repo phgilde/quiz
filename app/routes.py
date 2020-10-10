@@ -13,6 +13,7 @@ from app.models import Quiz, Question, Answer, Guess, AnswerGuess
 from app.quiz import answers, questions, questiontexts_name, questiontexts_new
 import json
 
+
 @app.route("/index")
 @app.route("/")
 def index():
