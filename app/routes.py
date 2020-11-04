@@ -151,3 +151,8 @@ def quizanswers(id_):
             name=quiz.name,
             max_score=len(questions),
         )
+
+
+@app.route("/impressum")
+def impressum():
+    return render_template("impressum.html", quiz_id=request.cookies.get("quiz"),)
