@@ -2,15 +2,22 @@
 <html lang="de" dir="ltr">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JNDQ5BMQ5D"></script>
+    <!-- Google Analytics -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-        gtag('config', 'G-JNDQ5BMQ5D');
+        ga('create', 'UA-255812039-Y', {
+            'storage': 'none'
+          });
+        ga('send', 'pageview');
     </script>
+    <!-- End Google Analytics -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="utf-8">
     {% if title %}
@@ -97,7 +104,7 @@
                         class="far fa-clipboard"></i></button>
             </a>
             <a href="{{url_for('impressum')}}">Impressum</a><br>
-            Wir nutzen Google Analytics zur Analyse der Websiteaufrufe: 
+            Wir nutzen Google Analytics zur Analyse der Websiteaufrufe:
             <a href="https://policies.google.com/technologies/partner-sites">Wie Google ihre Daten verwendet</a>
         </div>
     </footer>
