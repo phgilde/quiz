@@ -7,7 +7,7 @@ def clear_db():
     for column in columns:
         entries = column.query.all()
         for entry in entries:
-            entry.delete()
+            db.session.delete(entry)
 
 
 @app.shell_context_processor
