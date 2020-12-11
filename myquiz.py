@@ -2,6 +2,13 @@ from app import app, db
 from app.models import Quiz, Answer, Question, Guess, AnswerGuess
 
 
+def clear_db():
+    columns = [Quiz, Answer, Question, Guess, AnswerGuess]
+    for column in columns:
+        entries = column.query.all()
+        entries.delete()
+
+
 @app.shell_context_processor
 def make_shell_context():
     return {
@@ -11,5 +18,6 @@ def make_shell_context():
         "Question": Question,
         "Guess": Guess,
         "AnswerGuess": AnswerGuess,
+        "clear_db": clear_db,
     }
 
