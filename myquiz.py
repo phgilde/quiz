@@ -6,7 +6,8 @@ def clear_db():
     columns = [Quiz, Answer, Question, Guess, AnswerGuess]
     for column in columns:
         entries = column.query.all()
-        entries.delete()
+        for entry in entries:
+            entry.delete()
 
 
 @app.shell_context_processor
