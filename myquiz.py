@@ -21,4 +21,3 @@ def make_shell_context():
         "AnswerGuess": AnswerGuess,
         "clear_db": clear_db,
     }
-
