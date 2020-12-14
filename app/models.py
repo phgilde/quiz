@@ -13,7 +13,7 @@ class Quiz(db.Model):
     name = db.Column(db.String(length=255))
     questions = db.relationship("Question", backref="quiz", lazy="dynamic")
     guesses = db.relationship("Guess", backref="quiz", lazy="dynamic")
-    creation_date = db.Column(db.Date, default=date)
+    creation_date = db.Column(db.Date, default=date.today)
 
 
 class Question(db.Model):
