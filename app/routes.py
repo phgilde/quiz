@@ -12,6 +12,7 @@ from app.forms import QuizForm
 from app.models import Quiz, Question, Answer, Guess, AnswerGuess
 from app.quiz import answers, questions, questiontexts_name, questiontexts_new
 import json
+from urllib.parse import quote
 
 
 @app.route("/index")
@@ -233,4 +234,4 @@ def post_new_quiz():
 
 @app.context_processor
 def inject_quiz():
-    return dict(Quiz=Quiz)
+    return dict(Quiz=Quiz, quote=lambda x: quote(x, safe=""))
