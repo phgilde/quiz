@@ -229,3 +229,8 @@ def post_new_quiz():
     resp.set_cookie(str(id_), "True")
 
     return resp
+
+
+@app.context_processor
+def inject_quiz():
+    return dict(Quiz=Quiz)
