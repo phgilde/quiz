@@ -1,11 +1,22 @@
 (function () {
     "use strict";
+    function loadAnalytics() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-JNDQ5BMQ5D');
+    }
+    
+    if (getCookie("acceptCookies")) {
+        loadAnalytics();
+    }
 
     var cookieAlert = document.querySelector(".cookiealert");
     var acceptCookies = document.querySelector(".acceptcookies");
 
     if (!cookieAlert) {
-       return;
+        return;
     }
 
     cookieAlert.offsetHeight; // Force browser to trigger reflow (https://stackoverflow.com/a/39451131)
@@ -20,9 +31,8 @@
     acceptCookies.addEventListener("click", function () {
         setCookie("acceptCookies", true, 365);
         cookieAlert.classList.remove("show");
+        loadAnalytics();
     });
-
-    // Cookie functions from w3schools
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -45,4 +55,7 @@
         }
         return "";
     }
+    // Cookie functions from w3schools
+
 })();
+
