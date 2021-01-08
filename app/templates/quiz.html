@@ -18,7 +18,7 @@
               {{form.answers()}}
               {{form.submit(class_="btn btn-success")}}
           </form>
-          <p>Mit dem Klick auf "Abschicken" werden Cookies erstellt, die deine Antworten für das Quiz speichern.</p>
+          <p>Mit dem Klick auf "Abschicken" werden Cookies erstellt, die deine Antworten für das Quiz speichern. Wir speichern die Antworten für höchstens 2 Jahre.</p>
         </div>
       <script src="{{ url_for('static', filename='js/quiz.js')}}"></script>
       <script>run({{questions|tojson|safe}}, {{answers|tojson|safe}})</script>

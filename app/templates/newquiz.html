@@ -18,7 +18,7 @@
               {{form.submit(class_="btn btn-success")}}
           </form>
         </div>
-        <p>Mit dem Klick auf "Abschicken" werden Cookies erstellt, damit du dein Quiz wiederfindest.</p>
+        <p>Mit dem Klick auf "Abschicken" werden Cookies erstellt, damit du dein Quiz wiederfindest. Wir speichern das Quiz für höchstens 2 Jahre.</p>
       </div>
       <script src="{{ url_for('static', filename='js/newquiz.js')}}"></script>
       <script>run({{questions|tojson|safe}}, {{answers|tojson|safe}})</script>
